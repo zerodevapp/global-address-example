@@ -13,7 +13,7 @@ async function run() {
   // Replace this with an address you want to receive funds on
   const owner = '0xddED85de258cC7a33A61BC6215DD766E87a97070'
 
-  // Source tokens (any ERC20 from arbitrum, ETH from mainnet, USDC from optimism)
+  // Source tokens (any ERC20 on arbitrum, ETH on mainnet, USDC on optimism)
   const srcTokens: CreateMagicAddressParams["srcTokens"] = [
     {
       tokenType: 'ERC20',
@@ -53,8 +53,7 @@ async function run() {
     executionChain,
     owner,
     slippage,
-    tokens:
-    {
+    tokens: {
       'USDC': {
         calls: [call],
         fallBack: [],
@@ -65,7 +64,9 @@ async function run() {
       baseUrl: 'https://magic-address-server.onrender.com',
     },
   })
-  console.log('magicAddress', magicAddress)
+
+  console.log('Magic address', magicAddress)
+  console.log('Try sending at least 1 USDC to the magic address on any chain (say Arbitrum), and observe that the owner address receives funds on Base.')
 }
 
 run().catch((error) => console.error('Error:', error))
