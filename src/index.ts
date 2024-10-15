@@ -1,55 +1,68 @@
 import {
   createMagicAddress,
-  createAction,
+  createCall,
   ActionType,
   FLEX,
-  type TOKEN_TYPE,
+  CreateMagicAddressParams,
+  TOKEN_ADDRESSES,
 } from '@zerodev/magic-address';
-import { erc20Abi, type Address } from 'viem';
-import { sepolia, baseSepolia } from 'viem/chains';
-
+import { erc20Abi } from 'viem';
+import { base, arbitrum, mainnet, optimism } from 'viem/chains';
 
 async function run() {
-  const owner = '0x9775137314fe595c943712b0b336327dfa80ae8a';
-  // Source tokens (ETH on Base Sepolia)
-  const srcTokens: Address[] = [
-    '0x4200000000000000000000000000000000000006',
+  const owner = '0x52081d44Ad4F5A73624E62A0D00881BEe9D2Eef1';
+  
+  // Source tokens (any ERC20 from arbitrum, ETH from mainnet, USDC from optimism)
+  const srcTokens: CreateMagicAddressParams["srcTokens"] = [
+    {
+      tokenType: 'ERC20',
+      chain: arbitrum,
+    },
+    {
+      tokenType: 'NATIVE',
+      chain: mainnet
+    },
+    {
+      tokenType: 'USDC',
+      chain: optimism
+    },
   ];
 
-  const srcChains = [baseSepolia];
-  const executionChain = sepolia;
+  const executionChain = base;
   const slippage = 5000;
-  const tokenAddress: Address =
-    '0xfff9976782d46cc05630d1f6ebab18b2324d6b14' // WETH address
+  const tokenAddress  =
+    TOKEN_ADDRESSES[base.id]["USDC"] // WETH address
+  
+  if (!tokenAddress) {
+    throw new Error('Token address not found');
+  }
 
   const to = tokenAddress;
-  const action = createAction({
+  const action = createCall({
     target: to,
     value: 0n,
     // data
     abi: erc20Abi,
     functionName: 'transfer',
-    args: [owner, FLEX],
+    args: [owner, FLEX.FLEX_AMOUNT],
     // call type
     actionType: ActionType.CALL,
-    shouldNotFail: true,
   });
 
-  const magicAddress = await createMagicAddress({
+  const { magicAddress } = await createMagicAddress({
     executionChain,
     owner,
     slippage,
-    tokenActions: [
+    tokens: 
       {
-        tokenType: 'ERC20' as TOKEN_TYPE,
-        tokenAddress,
-        actions: [action],
-      }
-    ],
-    srcChains,
+        'USDC' : {
+          calls: [action],
+          fallBack: [],
+        }
+      },
     srcTokens,
     config: {
-      baseUrl: 'http://127.0.0.1:4000',
+      baseUrl: 'https://magic-address-server.onrender.com',
     },
   });
   console.log('magicAddress', magicAddress);
