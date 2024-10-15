@@ -10,6 +10,7 @@ import { erc20Abi } from 'viem'
 import { base, arbitrum, mainnet, optimism } from 'viem/chains'
 
 async function run() {
+  // Replace this with an address you want to receive funds on
   const owner = '0xddED85de258cC7a33A61BC6215DD766E87a97070'
 
   // Source tokens (any ERC20 from arbitrum, ETH from mainnet, USDC from optimism)
