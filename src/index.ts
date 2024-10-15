@@ -5,13 +5,13 @@ import {
   FLEX,
   CreateMagicAddressParams,
   TOKEN_ADDRESSES,
-} from '@zerodev/magic-address';
-import { erc20Abi } from 'viem';
-import { base, arbitrum, mainnet, optimism } from 'viem/chains';
+} from '@zerodev/magic-address'
+import { erc20Abi } from 'viem'
+import { base, arbitrum, mainnet, optimism } from 'viem/chains'
 
 async function run() {
-  const owner = '0x52081d44Ad4F5A73624E62A0D00881BEe9D2Eef1';
-  
+  const owner = '0xddED85de258cC7a33A61BC6215DD766E87a97070'
+
   // Source tokens (any ERC20 from arbitrum, ETH from mainnet, USDC from optimism)
   const srcTokens: CreateMagicAddressParams["srcTokens"] = [
     {
@@ -26,19 +26,18 @@ async function run() {
       tokenType: 'USDC',
       chain: optimism
     },
-  ];
+  ]
 
-  const executionChain = base;
-  const slippage = 5000;
-  const tokenAddress  =
-    TOKEN_ADDRESSES[base.id]["USDC"] // WETH address
-  
+  const executionChain = base
+  const slippage = 5000
+  const tokenAddress = TOKEN_ADDRESSES[base.id]["USDC"]
+
   if (!tokenAddress) {
-    throw new Error('Token address not found');
+    throw new Error('Token address not found')
   }
 
-  const to = tokenAddress;
-  const action = createCall({
+  const to = tokenAddress
+  const call = createCall({
     target: to,
     value: 0n,
     // data
@@ -47,25 +46,25 @@ async function run() {
     args: [owner, FLEX.FLEX_AMOUNT],
     // call type
     actionType: ActionType.CALL,
-  });
+  })
 
   const { magicAddress } = await createMagicAddress({
     executionChain,
     owner,
     slippage,
-    tokens: 
-      {
-        'USDC' : {
-          calls: [action],
-          fallBack: [],
-        }
-      },
+    tokens:
+    {
+      'USDC': {
+        calls: [call],
+        fallBack: [],
+      }
+    },
     srcTokens,
     config: {
       baseUrl: 'https://magic-address-server.onrender.com',
     },
-  });
-  console.log('magicAddress', magicAddress);
+  })
+  console.log('magicAddress', magicAddress)
 }
 
-run().catch((error) => console.error('Error:', error));
+run().catch((error) => console.error('Error:', error))
