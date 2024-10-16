@@ -3,7 +3,6 @@ import {
   createCall,
   FLEX,
   CreateMagicAddressParams,
-  TOKEN_ADDRESSES,
 } from '@zerodev/magic-address'
 import { erc20Abi } from 'viem'
 import { base, arbitrum, mainnet, optimism } from 'viem/chains'
@@ -30,17 +29,10 @@ async function run() {
 
   const destChain = base
   const slippage = 5000
-  const tokenAddress = TOKEN_ADDRESSES[base.id]["USDC"]
 
-  if (!tokenAddress) {
-    throw new Error('Token address not found')
-  }
-
-  const to = tokenAddress
   const call = createCall({
-    target: to,
+    target: FLEX.TOKEN_ADDRESS,
     value: 0n,
-    // data
     abi: erc20Abi,
     functionName: 'transfer',
     args: [owner, FLEX.AMOUNT],
