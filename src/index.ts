@@ -1,7 +1,6 @@
 import {
   createMagicAddress,
   createCall,
-  ActionType,
   FLEX,
   CreateMagicAddressParams,
   TOKEN_ADDRESSES,
@@ -29,7 +28,7 @@ async function run() {
     },
   ]
 
-  const executionChain = base
+  const destChain = base
   const slippage = 5000
   const tokenAddress = TOKEN_ADDRESSES[base.id]["USDC"]
 
@@ -44,18 +43,16 @@ async function run() {
     // data
     abi: erc20Abi,
     functionName: 'transfer',
-    args: [owner, FLEX.FLEX_AMOUNT],
-    // call type
-    actionType: ActionType.CALL,
+    args: [owner, FLEX.AMOUNT],
   })
 
   const { magicAddress } = await createMagicAddress({
-    executionChain,
+    destChain,
     owner,
     slippage,
-    tokens: {
+    actions: {
       'USDC': {
-        calls: [call],
+        action: [call],
         fallBack: [],
       }
     },
