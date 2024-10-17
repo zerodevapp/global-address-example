@@ -46,7 +46,7 @@ async function run() {
     args: [owner, FLEX.AMOUNT],
   })
 
-  const { magicAddress } = await createMagicAddress({
+  const { magicAddress, estimatedFees } = await createMagicAddress({
     destChain,
     owner,
     slippage,
@@ -63,6 +63,7 @@ async function run() {
   })
 
   console.log('Magic address', magicAddress)
+  console.log('Estimated fee per token deposit', JSON.stringify(estimatedFees, null, 2));
   console.log('Try sending at least 1 USDC to the magic address on any chain (say Arbitrum), and observe that the owner address receives funds on Base.')
 }
 
