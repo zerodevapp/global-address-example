@@ -44,7 +44,7 @@ async function run() {
 
   const nativeCall = createCall({
     target: owner,
-    value: BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'),
+    value: FLEX.NATIVE_AMOUNT,
   })
 
   const { magicAddress, estimatedFees } = await createMagicAddress({
