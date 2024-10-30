@@ -19,6 +19,10 @@ async function run() {
     },
     {
       tokenType: 'NATIVE',
+      chain: arbitrum, 
+    },
+    {
+      tokenType: 'NATIVE',
       chain: mainnet
     },
     {
@@ -30,12 +34,17 @@ async function run() {
   const destChain = base
   const slippage = 5000
 
-  const call = createCall({
+  const erc20Call = createCall({
     target: FLEX.TOKEN_ADDRESS,
     value: 0n,
     abi: erc20Abi,
     functionName: 'transfer',
     args: [owner, FLEX.AMOUNT],
+  })
+
+  const nativeCall = createCall({
+    target: owner,
+    value: BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'),
   })
 
   const { magicAddress, estimatedFees } = await createMagicAddress({
@@ -44,7 +53,15 @@ async function run() {
     slippage,
     actions: {
       'USDC': {
-        action: [call],
+        action: [erc20Call],
+        fallBack: [],
+      },
+      'WRAPPED_NATIVE': {
+        action: [erc20Call],
+        fallBack: [],
+      },
+      'NATIVE': {
+        action: [nativeCall],
         fallBack: [],
       }
     },
