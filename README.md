@@ -1,4 +1,4 @@
-# Magic Address
+# Global Address
 
 To run the example:
 
