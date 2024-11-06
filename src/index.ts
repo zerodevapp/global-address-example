@@ -3,7 +3,7 @@ import {
   createCall,
   FLEX,
   CreateMagicAddressParams,
-} from '@zerodev/magic-address'
+} from '@zerodev/global-address'
 import { erc20Abi } from 'viem'
 import { base, arbitrum, mainnet, optimism } from 'viem/chains'
 
