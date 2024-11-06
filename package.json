@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@zerodev/global-address": "^0.0.18",
+    "@zerodev/global-address": "^0.0.19",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
   }
