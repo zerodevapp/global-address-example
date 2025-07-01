@@ -10,10 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@zerodev/global-address": "^0.1.0",
+    "@zerodev/global-address": "^0.1.2",
     "dotenv": "^16.5.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3",
-    "viem": "file:../global-address-sdk/node_modules/viem"
+    "viem": "^2.31.6"
   }
 }
