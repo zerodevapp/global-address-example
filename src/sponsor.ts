@@ -60,15 +60,15 @@ async function run() {
     actions: {
       'USDC': {
         action: [erc20Call],
-        fallBack: [],
+        fallBack: [erc20Call],
       },
       'WRAPPED_NATIVE': {
         action: [erc20Call],
-        fallBack: [],
+        fallBack: [erc20Call],
       },
       'NATIVE': {
         action: [nativeCall],
-        fallBack: [],
+        fallBack: [nativeCall],
       }
     },
     srcTokens,

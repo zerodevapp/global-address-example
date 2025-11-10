@@ -4,7 +4,7 @@
     "": {
       "name": "global-address-example",
       "dependencies": {
-        "@zerodev/global-address": "^0.1.6",
+        "@zerodev/global-address": "^0.1.7",
         "dotenv": "^16.5.0",
         "ts-node": "^10.9.2",
         "typescript": "^5.6.3",
@@ -45,7 +45,7 @@
 
     "@types/node": ["@types/node@24.0.8", "", { "dependencies": { "undici-types": "~7.8.0" } }, "sha512-WytNrFSgWO/esSH9NbpWUfTMGQwCGIKfCmNlmFDNiI5gGhgMmEA+V1AEvKLeBNvvtBnailJtkrEa2OIISwrVAA=="],
 
-    "@zerodev/global-address": ["@zerodev/global-address@0.1.6", "", { "peerDependencies": { "typescript": "^5.0.0", "viem": "^2.31.4" } }, "sha512-WAF9/wGphyK4pbRHM2xkCiWJyBvFFz+UHuiW9kcIzm9NXQXEjFTbwqkQe4gcNQuYaMsdXDhxl8Z59mIKuEGlIw=="],
+    "@zerodev/global-address": ["@zerodev/global-address@0.1.7", "", { "peerDependencies": { "typescript": "^5.0.0", "viem": "^2.31.4" } }, "sha512-aJPeRcDVcyvCYPT/sHqnj67xqb6z/UkrirYwTD0dlHf39JbjGBdxrmHYQTHdWtjhLT3fXVZOZPgXxxYnre59Xw=="],
 
     "abitype": ["abitype@1.0.8", "", { "peerDependencies": { "typescript": ">=5.0.4", "zod": "^3 >=3.22.0" }, "optionalPeers": ["typescript", "zod"] }, "sha512-ZeiI6h3GnW06uYDLx0etQtX/p8E24UaHHBj57RSjK7YBFe7iuVn07EDpOeP451D06sF27VOz9JJPlIKJmXgkEg=="],
 
